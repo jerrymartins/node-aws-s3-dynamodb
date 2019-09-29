@@ -13,7 +13,7 @@ const {
   filmDelete} = require('../services/MoviesService');
 
 router.post('/', (req, res, next) => {
-  const film = req.body;
+  const film = {TableName: 'Movies', ...req.body};
   filmRegister(film).then( r => {
     res.status(r.statusCode).send();
   }).catch(err => {

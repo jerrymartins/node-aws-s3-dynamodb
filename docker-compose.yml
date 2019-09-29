@@ -1,0 +1,102 @@
+
+version: '3'
+
+services:
+#  express:
+#    image: node:alpine
+#    volumes:
+#      - ./:/app
+#    working_dir: /app
+#    networks:
+#      - dynamox-network
+#    depends_on:
+#      - mongo
+#    environment:
+#      NODE_ENV: development
+#    ports:
+#      - 5000:3000
+#    command: npm run dev
+
+
+#  mongo-express:
+#    image: mongo-express
+#    container_name: dynamoxdb-me
+#    ports:
+#      - 8081:8081
+#    environment:
+#      ME_CONFIG_BASICAUTH_USERNAME: dynamox
+#      ME_CONFIG_BASICAUTH_PASSWORD: MongoExpress2019!
+#      ME_CONFIG_MONGODB_PORT: 27017
+#    links:
+#      - mongo
+#    networks:
+#      - dynamox-network
+
+#  start_dependencies:
+#    image: dadarek/wait-for-dependencies
+#    depends_on:
+#      - minioserver
+#      - mongo
+#    command: minioserver:9000 mongo:27017
+#    networks:
+#      - dynamox-network
+
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+
+#  mongo:
+#    image: mongo
+#    container_name: dynamoxdb
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - ./mongo-volumn:/data/db
+#    networks:
+#      - dynamox-network
+
+#  minioserver:
+#    container_name: minioserver
+#    hostname: "minioserver"
+#    build:
+#      dockerfile: ./docker/minio/server/Dockerfile
+#      context: .
+#    environment:
+#        MINIO_ACCESS_KEY: minio
+#        MINIO_SECRET_KEY: minio123
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - dynamox-network
+#    volumes:
+#      - ./mongodata:/data
+
+#  minioconfig:
+#    container_name: minioconfig
+#    build:
+#      dockerfile: ./docker/minio/client/Dockerfile
+#      context: .
+#    environment:
+#      MINIO_HOST: minioserver
+#      MINIO_ACCESS_KEY: minio
+#      MINIO_SECRET_KEY: minio123
+#    networks:
+#      - dynamox-network
+#    volumes:
+#      - ./miniodata:/data
+#    ports:
+#      - "9001:9000"
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://minio1:9000/minio/health/live"]
+#      interval: 1m30s
+#      timeout: 20s
+#      retries: 3
+
+networks:
+  dynamox-network:
+    driver: bridge
+
+volumes:
+  miniodata:
+  mongodata:

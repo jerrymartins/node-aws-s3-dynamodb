@@ -1,0 +1,2 @@
+require('./UsersCreateTable');
+require('./MoviesCreateTable');

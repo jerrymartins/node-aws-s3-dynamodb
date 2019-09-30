@@ -15,8 +15,7 @@ router.post('/upload', (req, res, next) => {
         Bucket: 's3dynamox',
         Key: path.basename(hash),
         ACL: 'public-read',
-        Body: req.files.photo.data,
-        ContentType: req.files.photo.mimeType
+        Body: req.files.photo.data
     };
 
     //call S3 to retrieve upload file to specified bucket

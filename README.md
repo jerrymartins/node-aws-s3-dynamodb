@@ -25,4 +25,7 @@ desenvolvido, sendo assim é necessário enviar os arquivos de vídeo diretament
 ou desenvolver uma solução separada para tratamento e envio de vídeos, então no front end informar apenas 
 a url do vídeo a ser associado ao filme.
 
+### demonstração de arquitetura
+![alt text](https://raw.githubusercontent.com/jerrymartins/node-aws-s3-dynamodb/master/Untitled%20Diagram.png)
+
 # api TRAILIX

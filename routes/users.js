@@ -6,10 +6,9 @@ const {
     userScan,
     userQuery,
     userById,
-    userUpdate,
     userDelete} = require('../services/UsersService');
 
-router.post('/', (req, res, next) => {
+router.post('/', verifyJWT, (req, res, next) => {
     const film = req.body;
     let paramsGet = {
         TableName: "Users",
@@ -22,7 +21,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.get('/',  (req, res, next) => {
+router.get('/', verifyJWT, (req, res, next) => {
     const paramsGet = {
         TableName: "Users",
         Limit: 50,

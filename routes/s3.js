@@ -32,4 +32,17 @@ router.post('/upload', (req, res, next) => {
 
 });
 
+router.delete('/', (req, res, next) => {
+    const params = {  Bucket: 's3dynamox', Key: 'q1x5c3at1cczvzbrku8bnFullmetal Alchemist Final Trailer (2017) Live Action Anime Adaptation.mp4' };
+
+    s3.deleteObject(params, function(err, data) {
+        if (err) {
+            res.send(err);
+        }
+        if (data) {
+            res.send(data.Location);
+        }                // deleted
+    });
+})
+
 module.exports = router;

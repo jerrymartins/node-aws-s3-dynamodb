@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyJWT = require('../utils/verifyJWT');
 const aws = require('../config/aws');
 const path = require('path');
+const generateHash = require('../utils/generateHash');
 
 aws.config.update({
     endpoint: "https://s3.amazonaws.com",
@@ -10,11 +11,10 @@ aws.config.update({
 const s3 = new aws.S3({apiVersion: new Date()});
 
 router.post('/upload', (req, res, next) => {
-    const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + req.files.file.name;
-
+    const hashName = generateHash(Math.random().toString(36).substring(2, 15) + req.files.file.name);
     const uploadParams = {
         Bucket: 's3dynamox',
-        Key: path.basename(hash),
+        Key: hashName,
         ACL: 'public-read',
         Body: req.files.file.data,
         ContentType: req.files.file.mimetype

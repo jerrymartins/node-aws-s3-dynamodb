@@ -20,8 +20,19 @@ router.post('/upload', (req, res, next) => {
         ContentType: req.files.file.mimetype
     };
 
-    //call S3 to retrieve upload file to specified bucket
-    s3.upload (uploadParams, function (err, data) {
+
+    // s3.upload(uploadParams).on('httpUploadProgress', event => {
+    //     console.log(`Uploaded ${event.loaded} out of ${event.total}`);
+    // }).send((err, data) => {
+    //     if (err) {
+    //         res.send(err);
+    //     }
+    //     if (data) {
+    //         res.send(data.Location);
+    //     }
+    // });
+    // call S3 to retrieve upload file to specified bucket
+    s3.upload(uploadParams, function (err, data) {
         if (err) {
             res.send(err);
         }
@@ -33,7 +44,17 @@ router.post('/upload', (req, res, next) => {
 });
 
 router.delete('/', (req, res, next) => {
-    const params = {  Bucket: 's3dynamox', Key: 'q1x5c3at1cczvzbrku8bnFullmetal Alchemist Final Trailer (2017) Live Action Anime Adaptation.mp4' };
+    let keys = [];
+    for (let property in req.body) {
+        keys.push({Key: req.body[property]});
+    }
+
+    const params = {
+        Bucket: 's3dynamox',
+        Delete: {
+            Objects : keys
+        }
+    };
 
     s3.deleteObject(params, function(err, data) {
         if (err) {
@@ -43,6 +64,6 @@ router.delete('/', (req, res, next) => {
             res.send(data.Location);
         }                // deleted
     });
-})
+});
 
 module.exports = router;

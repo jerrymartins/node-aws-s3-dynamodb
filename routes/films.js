@@ -132,7 +132,7 @@ router.delete('/:yearFilm/:title', verifyJWT, (req, res, next) => {
   const params = {
     TableName: 'Movies',
     Key:{
-      "yearFilm": parseInt(req.params.yearFilm),
+      "yearFilm": req.params.yearFilm,
       "title": req.params.title
     },
     // ConditionExpression:"info.rating <= :val",

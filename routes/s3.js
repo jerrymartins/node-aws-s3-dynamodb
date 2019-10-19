@@ -56,12 +56,12 @@ router.delete('/', (req, res, next) => {
         }
     };
 
-    s3.deleteObject(params, function(err, data) {
+    s3.deleteObjects(params, function(err, data) {
         if (err) {
             res.send(err);
         }
         if (data) {
-            res.send(data.Location);
+            res.send(data);
         }                // deleted
     });
 });
